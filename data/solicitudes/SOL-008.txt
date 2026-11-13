@@ -1,0 +1,26 @@
+SOLICITUD DE COTIZACIÓN N.° 008
+Lima, 11 de noviembre de 2026
+
+Señores
+Área de Pricing y Optimización de Precios - Izipay
+Presente.-
+
+Por medio de la presente, Ferretería El Constructor SRL solicita la cotización de la tasa de comisión por el procesamiento de pagos con POS, conforme a los datos siguientes:
+
+RUC: 20478901234
+Razón social: Ferretería El Constructor SRL
+Código(s) de giro (MCC): 5251
+Giro(s) de negocio: Ferretería
+Banco afiliado: SCOTIABANK
+Cuenta de abono: Soles
+Departamento: Lima
+Provincia: Lima
+Distrito: Ate
+Dirección: Av. Nicolás Ayllón 3560
+Banco(s) competidor(es): BBVA
+Tasa(s) ofertada(s) por la competencia: 2.70%
+
+Sin otro particular, quedo atento a su respuesta.
+
+Atentamente,
+Ferretería El Constructor SRL

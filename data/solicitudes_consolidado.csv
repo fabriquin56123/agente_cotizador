@@ -1,0 +1,16 @@
+id_solicitud,ruc,razon_social,codigos_giro,nombres_giro,banco_afiliado,moneda_cuenta,departamento,provincia,distrito,direccion,bancos_competencia,tasas_competencia_pct,flag_decision,motivo,giro_principal,tasa_final_pct
+SOL-001,20512345671,Supermercados Pacífico Sur SAC,5411,Supermercados y abarrotes,INTERBANK,PEN,Lima,Lima,San Isidro,Av. Camino Real 1450,"BBVA,BCP","2.80,3.00",APRUEBA,TASA_MENOR_COMPETENCIA,5411,2.25
+SOL-002,20498765432,Restaurante Sabor Criollo EIRL,5812,Restaurantes,BBVA,PEN,Lima,Lima,Miraflores,Calle Schell 320,BCP,3.20,APRUEBA,TASA_MENOR_COMPETENCIA,5812,3.00
+SOL-003,20534567891,Farmacias Salud Total SAC,5912,Farmacias,BCP,USD,Lima,Lima,Santiago de Surco,Av. Primavera 2105,BBVA,2.20,APRUEBA,TASA_MENOR_COMPETENCIA,5912,2.05
+SOL-004,20601234567,Inversiones Gourmet del Cusco SAC,"5812,5814","Restaurantes,Comida rápida",BCP,PEN,Cusco,Cusco,Cusco,Av. El Sol 580,BBVA,3.30,APRUEBA,TASA_MENOR_COMPETENCIA,5814,2.80
+SOL-005,20587654321,Moda y Tecnología Arequipa SAC,"5651,5732","Ropa y accesorios,Electrónica",SCOTIABANK,PEN,Arequipa,Arequipa,Arequipa,Calle Mercaderes 210,BCP,3.50,RECHAZA,GIRO_SECUNDARIO_DOMINANTE,,
+SOL-006,10456789012,Carlos Mendoza Ríos,5942,Librerías,BCP,PEN,La Libertad,Trujillo,Trujillo,Jr. Pizarro 455,BBVA,3.00,RECHAZA,RUC10_NO_PERMITIDO,,
+SOL-007,45871236,Rosa Huamán Cáceres,7230,Salones de belleza,BBVA,PEN,Lima,Lima,San Juan de Lurigancho,Av. Próceres 1200,BCP,3.80,RECHAZA,DNI_NO_PERMITIDO,,
+SOL-008,20478901234,Ferretería El Constructor SRL,5251,Ferretería,SCOTIABANK,PEN,Lima,Lima,Ate,Av. Nicolás Ayllón 3560,BBVA,2.70,RECHAZA,CARTERA_SIN_TRANSACCIONES_6M,,
+SOL-009,20623456789,Café Aroma Barranco SAC,5812,Restaurantes,BBVA,PEN,Lima,Lima,Barranco,Av. Grau 340,BCP,3.40,APRUEBA,TASA_MENOR_COMPETENCIA,5812,3.03
+SOL-010,20556789012,Librería Saber Trujillo SAC,5942,Librerías,INTERBANK,PEN,La Libertad,Trujillo,Trujillo,Av. España 1820,BBVA,3.20,APRUEBA,TASA_MENOR_COMPETENCIA,5942,2.40
+SOL-011,20612345098,Hotel Plaza Andina SAC,7011,Hoteles,BCP,USD,Cusco,Cusco,Cusco,Calle Plateros 305,"BBVA,SCOTIABANK","3.00,3.10",APRUEBA,TASA_EQUIPARABLE_ZONA_PREMIUM,7011,3.23
+SOL-012,20598760123,Boutique Elegance SAC,5651,Ropa y accesorios,BBVA,PEN,Lima,Lima,Los Olivos,Av. Alfredo Mendiola 5200,BCP,2.90,EVALUA_EXPERTO,SOBRE_COMPETENCIA_DENTRO_TOLERANCIA,5651,
+SOL-013,20587012345,Salón Bella Vida SAC,7230,Salones de belleza,BCP,PEN,Lima,Lima,Comas,Av. Túpac Amaru 4300,BBVA,2.60,RECHAZA,SIN_MARGEN_SOBRE_COMPETENCIA,7230,
+SOL-014,20545678123,Clínica San Borja Salud SAC,8011,Servicios médicos,INTERBANK,PEN,Lima,Lima,San Borja,Av. Javier Prado Este 2960,"BBVA,BCP","1.90,2.00",APRUEBA,TASA_MENOR_COMPETENCIA,8011,1.50
+SOL-015,20509871234,Grifo Los Libertadores EIRL,5541,Estaciones de servicio,INTERBANK,PEN,Lima,Lima,Ate,Av. Separadora Industrial 790,BBVA,1.30,EVALUA_EXPERTO,SOBRE_COMPETENCIA_DENTRO_TOLERANCIA,5541,

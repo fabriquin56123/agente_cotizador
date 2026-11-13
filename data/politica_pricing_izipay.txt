@@ -1,0 +1,71 @@
+POLITICA DE PRICING - COTIZACION DE TASA DE COMISION (DOCUMENTO DE PRUEBA, DATOS FICTICIOS)
+Area de Pricing y Optimizacion de Precios - Izipay
+Vigencia de referencia: noviembre de 2026
+
+1. OBJETIVO
+Definir como se cotiza la tasa de comision (en porcentaje) por procesamiento de pagos con POS a un comercio que solicita cotizacion, de modo que la oferta sea competitiva para el cliente y rentable para la empresa.
+
+2. DECISIONES POSIBLES
+Cada solicitud termina en una de tres decisiones: RECHAZA, EVALUA_EXPERTO o APRUEBA. Solo cuando se aprueba se informa la tasa final y el giro principal del negocio.
+
+3. REGLAS DE RECHAZO
+3.1 Documento de identidad. Si el cliente registra su negocio con DNI (8 digitos) o con RUC 10 (persona natural, empieza con 10), se rechaza la cotizacion.
+3.2 Cliente de cartera inactivo. Si el cliente ya figura en la base transaccional pero no registra transacciones en los ultimos 6 meses, se rechaza la solicitud.
+3.3 Multiples giros con giro secundario dominante. Si el cliente declara varios giros y el volumen de algun giro secundario es igual o mayor a 3 veces el volumen del giro principal declarado (primero de la lista) en los ultimos 6 meses, no se cotiza.
+3.4 Sin margen. Si la tasa calculada supera a la mayor tasa de la competencia por mas de la tolerancia indicada en la seccion 8, se rechaza.
+
+4. GIRO PRINCIPAL
+4.1 Si el cliente tiene un solo giro, ese es el giro principal.
+4.2 Si tiene multiples giros (y no aplica la regla 3.3), el giro principal es el de mayor volumen de transacciones en los ultimos 6 meses.
+4.3 Si no hay transacciones para decidir, el giro principal es el primero declarado en la solicitud.
+
+5. HISTORIAL TRANSACCIONAL
+5.1 La ventana de analisis son los 6 meses cerrados anteriores a la fecha de la solicitud.
+5.2 Con 6 meses de transacciones, la tasa se calcula con el tarifario y el descuento por volumen propio (seccion 6).
+5.3 Si el cliente es nuevo o tiene menos de 6 meses de transacciones (por ejemplo solo 1, 2 o 3 meses), se toma como referencia la tasa de los comercios similares: promedio de la tasa tarifaria de los clientes con 6 meses de historial en el mismo MCC. Si no hay comercios similares, se usa el tarifario base.
+5.4 Para convertir dolares a soles se usa el tipo de cambio de referencia de 3.75.
+
+6. TARIFARIO BASE POR MCC (tasa de comision %, ficticio)
+MCC 5411 | Supermercados y abarrotes | 2.10%
+MCC 5812 | Restaurantes | 2.90%
+MCC 5814 | Comida rapida | 2.70%
+MCC 5912 | Farmacias | 2.30%
+MCC 5311 | Tiendas por departamento | 2.40%
+MCC 5651 | Ropa y accesorios | 3.10%
+MCC 7230 | Salones de belleza | 3.40%
+MCC 8011 | Servicios medicos | 2.80%
+MCC 5541 | Estaciones de servicio | 1.90%
+MCC 4121 | Taxis y transporte | 3.60%
+MCC 5942 | Librerias | 3.00%
+MCC 5732 | Electronica | 2.60%
+MCC 5251 | Ferreteria | 2.50%
+MCC 7011 | Hoteles | 3.20%
+MCC 8211 | Colegios | 2.20%
+MCC 5999 | Tiendas varias | 3.30%
+MCC 5200 | Materiales de construccion | 2.35%
+MCC 4722 | Agencias de viaje | 3.70%
+Si el MCC no figura en el tarifario, la solicitud pasa a evaluacion por experto.
+
+Descuento por volumen mensual promedio del giro principal (en soles):
+- Desde S/ 500,000: menos 0.40 puntos porcentuales.
+- Desde S/ 200,000: menos 0.25 puntos porcentuales.
+- Desde S/ 80,000: menos 0.10 puntos porcentuales.
+- Menos de S/ 80,000: sin descuento.
+
+Prima de zona premium: mas 0.20 puntos porcentuales sobre la tasa tarifaria ajustada (ver informe de rentabilidad por zonas).
+
+7. BANCO AFILIADO Y TASA DE REFERENCIA DE LA COMPETENCIA
+7.1 La tasa de la competencia es la tasa que otro banco (por ejemplo BBVA, BCP o Scotiabank) le ofrecio al cliente, tal como consta en su solicitud. Si hay varias ofertas, la referencia es la tasa mas alta.
+7.2 Si el cliente recibe sus abonos en una cuenta Interbank, se le ofrece una tasa menor: 0.75 veces la tasa mas alta que le ofrecio la competencia.
+7.3 Para los demas bancos, la tasa calculada es la tasa tarifaria ajustada (secciones 5 y 6) mas la prima de zona premium si corresponde.
+
+8. LIMITES Y COMPARACION CON LA COMPETENCIA
+8.1 Toda tasa final debe estar entre 1.40% (minimo) y 5.00% (maximo). Si el calculo queda fuera, se ajusta al limite mas cercano.
+8.2 Si la tasa calculada es menor que la mayor tasa de la competencia, se APRUEBA con la tasa calculada.
+8.3 Si la tasa calculada es mayor o igual que la de la competencia, se mide la diferencia en puntos porcentuales:
+    Fuera de zonas premium: hasta +0.30 pp pasa a EVALUA_EXPERTO; mas de +0.30 pp se RECHAZA.
+    En zonas premium (Miraflores, San Isidro, Barranco y San Borja en Lima; Trujillo; Arequipa; Cusco): hasta +0.30 pp se APRUEBA; entre +0.30 pp y +0.60 pp pasa a EVALUA_EXPERTO; mas de +0.60 pp se RECHAZA.
+8.4 Si la solicitud no informa ninguna tasa de la competencia, pasa a EVALUA_EXPERTO.
+
+9. SALIDAS
+El consolidado de solicitudes incluye la decision, el motivo, el giro principal y la tasa final (solo si se aprueba). El archivo de resultados de cotizacion incluye unicamente los clientes con cotizacion aprobada.

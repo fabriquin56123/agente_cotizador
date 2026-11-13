@@ -1,0 +1,9 @@
+id_solicitud,ruc,razon_social,cotiza,giro_principal,tasa_final_pct
+SOL-001,20512345671,Supermercados Pacífico Sur SAC,SI,5411,2.25
+SOL-002,20498765432,Restaurante Sabor Criollo EIRL,SI,5812,3.00
+SOL-003,20534567891,Farmacias Salud Total SAC,SI,5912,2.05
+SOL-004,20601234567,Inversiones Gourmet del Cusco SAC,SI,5814,2.80
+SOL-009,20623456789,Café Aroma Barranco SAC,SI,5812,3.03
+SOL-010,20556789012,Librería Saber Trujillo SAC,SI,5942,2.40
+SOL-011,20612345098,Hotel Plaza Andina SAC,SI,7011,3.23
+SOL-014,20545678123,Clínica San Borja Salud SAC,SI,8011,1.50

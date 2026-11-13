@@ -1,0 +1,23 @@
+INFORME DE RENTABILIDAD POR ZONAS GEOGRAFICAS (DOCUMENTO DE PRUEBA, DATOS FICTICIOS)
+Area de Pricing y Optimizacion de Precios - Izipay
+Fecha: noviembre de 2026
+
+1. RESUMEN
+Un estudio de rentabilidad por zona concluye que es posible ofrecer tasas de comision altas, equiparables o incluso superiores a las de la competencia, en las siguientes zonas:
+- Lima: distritos de Miraflores, San Isidro, Barranco y San Borja.
+- Trujillo.
+- Arequipa.
+- Cusco.
+
+2. HALLAZGOS
+2.1 En estas zonas el ticket promedio es mayor y la sensibilidad del comercio a la tasa es menor, por lo que la probabilidad de perder al cliente por una tasa ligeramente superior a la de la competencia es baja.
+2.2 El margen por transaccion es mayor por la menor tasa de contracargos y la mayor proporcion de tarjetas premium.
+2.3 La demanda de servicios adicionales (pagos en cuotas, ventas por internet) es alta y compensa una tasa mas alta.
+
+3. RECOMENDACION PARA LA POLITICA DE PRICING
+3.1 Aplicar una prima de zona premium de 0.20 puntos porcentuales sobre la tasa tarifaria ajustada.
+3.2 Ampliar la tolerancia frente a la competencia: en estas zonas se puede aprobar automaticamente una tasa de hasta 0.30 puntos porcentuales por encima de la mayor tasa ofrecida por la competencia; entre 0.30 y 0.60 puntos porcentuales se envia a evaluacion por experto; por encima de 0.60 se rechaza.
+3.3 Fuera de estas zonas, una tasa igual o superior a la de la competencia solo se acepta hasta 0.30 puntos porcentuales y siempre mediante evaluacion por experto.
+
+4. LIMITACIONES
+El estudio es de caracter referencial. Las tasas finales siempre deben respetar el piso de 1.40% y el techo de 5.00% de la politica de pricing.
