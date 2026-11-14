@@ -3,15 +3,15 @@ import csv
 import pytest
 
 from src.herramientas import (
-    HERRAMIENTAS, Contexto, FuenteLocal, definiciones_para_foundry, ejecutar_herramienta,
+    HERRAMIENTAS, Contexto, definiciones_para_foundry, ejecutar_herramienta,
 )
 
-from .conftest import FECHA_REF
+from .conftest import FECHA_REF, FuenteDePrueba
 
 
 @pytest.fixture()
 def ctx(tmp_path):
-    return Contexto(fuente=FuenteLocal(), fecha_ref=FECHA_REF, ruta_decisiones=tmp_path / "salidas" / "d.csv")
+    return Contexto(fuente=FuenteDePrueba(), fecha_ref=FECHA_REF, ruta_decisiones=tmp_path / "salidas" / "d.csv")
 
 
 def test_lectura_se_ejecuta_sin_confirmacion(ctx):

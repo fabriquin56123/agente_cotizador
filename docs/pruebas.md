@@ -8,7 +8,7 @@ Todos los datos son ficticios.
 python -m src.generar_datos && python -m src.consolidar
 pytest -q
 ```
-Resultado en el entorno de desarrollo: **166 pruebas OK, 2 omitidas**. Las omitidas son las que
+Resultado en el entorno de desarrollo: **194 pruebas OK, 2 omitidas**. Las omitidas son las que
 requieren `fastapi`/`httpx` (`tests/test_api.py` y el entrypoint de `tests/test_vercel_compat.py`);
 no estaban instalados ni se pudieron instalar en ese entorno (sin red). **Ejecútalas tú** con
 `pip install -r requirements-dev.txt && pytest -q`.

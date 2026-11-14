@@ -4,9 +4,9 @@ import logging
 import pytest
 
 from src import logging_seguro as ls
-from src.herramientas import Contexto, FuenteLocal, ejecutar_herramienta
+from src.herramientas import Contexto, ejecutar_herramienta
 
-from .conftest import FECHA_REF
+from .conftest import FECHA_REF, FuenteDePrueba
 
 
 class Captura(logging.Handler):
@@ -66,7 +66,7 @@ def test_decorador_registra_error_y_relanza(captura):
 
 
 def test_tool_registra_correlation_id_latencia_resultado_sin_pii(captura):
-    ctx = Contexto(fuente=FuenteLocal(), fecha_ref=FECHA_REF)
+    ctx = Contexto(fuente=FuenteDePrueba(), fecha_ref=FECHA_REF)
     ejecutar_herramienta("consultar_transacciones_cliente", {"ruc": "20512345671", "meses": 6},
                          ctx, correlation_id="corr-123456789")
     ev = captura.eventos[-1]
@@ -77,7 +77,7 @@ def test_tool_registra_correlation_id_latencia_resultado_sin_pii(captura):
 
 
 def test_error_de_validacion_se_registra_sin_el_valor(captura):
-    ctx = Contexto(fuente=FuenteLocal(), fecha_ref=FECHA_REF)
+    ctx = Contexto(fuente=FuenteDePrueba(), fecha_ref=FECHA_REF)
     ejecutar_herramienta("consultar_transacciones_cliente", {"ruc": "123456789012"}, ctx)
     ev = captura.eventos[-1]
     assert ev["resultado"] == "error" and "VALIDACION" in ev["error"]

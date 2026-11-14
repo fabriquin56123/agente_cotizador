@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal
+from typing import Any
 
 RECHAZA = "RECHAZA"
 EVALUA_EXPERTO = "EVALUA_EXPERTO"
@@ -42,6 +43,17 @@ class RegistroTx:
     @property
     def volumen_total(self) -> Decimal:
         return self.vol_bbva + self.vol_interbank + self.vol_bcp
+
+    @classmethod
+    def desde_dict(cls, d: dict[str, Any]) -> "RegistroTx":
+        """Reconstruye un registro desde el JSON de GET /transacciones."""
+        return cls(
+            id_transaccion=str(d["id_transaccion"]), id_cliente=str(d["id_cliente"]),
+            ruc=str(d["ruc"]), razon_social=str(d["razon_social"]), periodo=str(d["periodo"]),
+            codigo_giro=str(d["codigo_giro"]), moneda=str(d["moneda"]),
+            vol_bbva=Decimal(str(d["volumen_bbva"])), vol_interbank=Decimal(str(d["volumen_interbank"])),
+            vol_bcp=Decimal(str(d["volumen_bcp"])),
+        )
 
 
 @dataclass(frozen=True)

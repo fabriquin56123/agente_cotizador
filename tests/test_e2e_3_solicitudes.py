@@ -6,14 +6,14 @@
 """
 import pytest
 
-from src.herramientas import Contexto, FuenteLocal, ejecutar_herramienta
+from src.herramientas import Contexto, ejecutar_herramienta
 
-from .conftest import FECHA_REF
+from .conftest import FECHA_REF, FuenteDePrueba
 
 
 @pytest.fixture()
 def ctx(tmp_path):
-    return Contexto(fuente=FuenteLocal(), fecha_ref=FECHA_REF, ruta_decisiones=tmp_path / "d.csv")
+    return Contexto(fuente=FuenteDePrueba(), fecha_ref=FECHA_REF, ruta_decisiones=tmp_path / "d.csv")
 
 
 def flujo(sid, ctx):

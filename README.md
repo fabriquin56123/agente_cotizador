@@ -54,14 +54,16 @@ uvicorn src.api.app:app --reload       # http://127.0.0.1:8000/docs
 | `GET /comercios-similares/{mcc}` | Tasa de referencia de comercios similares |
 | `GET /tarifario` · `GET /politica/buscar?q=` | Tarifario y RAG |
 
-Cada respuesta lleva `X-Correlation-ID`. Para que las tools del agente consuman la API en vez del CSV:
-`export API_BASE_URL=http://127.0.0.1:8000`.
+Cada respuesta lleva `X-Correlation-ID`. **El agente obtiene los datos transaccionales solo por esta API** (ya no lee el CSV):
+`API_BASE_URL` es obligatoria. Para evaluar una solicitud, el agente recorre `GET /transacciones` de 100 en 100 filas
+(más `GET /tarifario`); el CSV queda como base de datos de la API.
 
 ### Agente en Microsoft Foundry
-1. `cp .env.example .env` y completa `PROJECT_ENDPOINT`, `MODEL_DEPLOYMENT_NAME`, `AGENT_NAME` (y `MODEL_ENDPOINT`). Autenticación con `az login` (azure-identity).
+1. `cp .env.example .env` y completa `PROJECT_ENDPOINT`, `MODEL_DEPLOYMENT_NAME`, `AGENT_NAME` (y `MODEL_ENDPOINT`), además de `API_BASE_URL` (local: `http://127.0.0.1:8000`; Vercel: su URL). Autenticación con `az login` (azure-identity).
+   Deja la API corriendo en otra terminal (`uvicorn src.api.app:app`) antes de ejecutar el agente.
 2. **Plan, sin crear nada:** `python -m src.crear_agente`
 3. **Crear el agente** (acción con efectos en la nube; pide confirmación escribiendo el nombre): `python -m src.crear_agente --apply`
-4. Ejecutar: `python -m src.agente` (chat) o `python -m src.agente --solicitud SOL-004`.
+4. Ejecutar: `python -m src.agente` (chat) o `python -m src.agente --solicitud SOL-004` (evalúa y deja el chat abierto; Enter vacío para salir).
 
 > Los pasos 3 y 4 no se ejecutaron durante el desarrollo (sin acceso a Azure). El cliente usa la API de
 > `azure-ai-projects` 2.x documentada en [Microsoft Learn](https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/function-calling)
@@ -71,10 +73,10 @@ Cada respuesta lleva `X-Correlation-ID`. Para que las tools del agente consuman 
 | Tool | Tipo | Qué hace |
 |---|---|---|
 | `leer_solicitud` | lectura | Datos de la solicitud SOL-NNN |
-| `consultar_transacciones_cliente` | lectura (API/CSV) | Resumen de 1–12 meses por giro |
-| `consultar_comercios_similares` | lectura (API/CSV) | Tasa de referencia por MCC |
+| `consultar_transacciones_cliente` | lectura (API) | Resumen de 1–12 meses por giro |
+| `consultar_comercios_similares` | lectura (API) | Tasa de referencia por MCC |
 | `buscar_politica` | lectura (RAG) | Fragmentos de la política e informe de zonas |
-| `evaluar_solicitud` | lectura | Decisión determinista según la política |
+| `evaluar_solicitud` | lectura (API) | Decisión determinista según la política, con datos traídos de la API |
 | `guardar_decision` | **escritura** | Requiere **confirmación explícita** del usuario (callback fuera del modelo) |
 
 Toda entrada se valida (tipo, rango, lista permitida, longitud) antes de ejecutar. Cada llamada registra

@@ -2,9 +2,6 @@
 azure-ai-projects>=2.10.0,<3.0.0
 azure-identity>=1.27.0,<2.0.0
 
-# OpenAI
-openai>=3.0.0,<4.0.0
-
 # Environment variables
 python-dotenv>=1.2.4,<2.0.0
 

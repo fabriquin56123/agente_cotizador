@@ -6,7 +6,8 @@ from decimal import Decimal
 import pytest
 
 from src.modelos import RegistroTx, Solicitud
-from src.repositorio import ventana_periodos
+from src.repositorio import cargar_tarifario, cargar_transacciones, ventana_periodos
+from src.servicios import resumen_cliente, similares_por_mcc
 
 FECHA_REF = date(2026, 11, 12)
 PERIODOS = ventana_periodos(FECHA_REF, 6)  # 2026-05 … 2026-10
@@ -44,3 +45,22 @@ def tarifario() -> dict[str, Decimal]:
 @pytest.fixture()
 def fecha_ref() -> date:
     return FECHA_REF
+
+
+class FuenteDePrueba:
+    """Doble de prueba de `FuenteDatos`: sirve los datos del CSV sin pasar por HTTP.
+
+    Solo para tests; el código de producción del agente no lee el CSV.
+    """
+
+    def resumen_cliente(self, ruc, meses):
+        return resumen_cliente(ruc, meses)
+
+    def similares(self, mcc):
+        return similares_por_mcc(mcc)
+
+    def transacciones(self):
+        return cargar_transacciones()
+
+    def tarifario(self):
+        return cargar_tarifario()

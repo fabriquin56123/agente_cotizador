@@ -37,6 +37,7 @@ Una entrega se considera terminada solo si **todos** los puntos se cumplen.
 
 ## 4. Servicios
 - [ ] API FastAPI de solo lectura (solo GET) sirve el CSV; validación de parámetros.
+- [ ] El agente obtiene las transacciones solo por la API (paginando); no lee el CSV (test).
 - [ ] `crear_agente.py` es `--dry-run` por defecto; `--apply` pide confirmación.
 - [ ] Prueba de compatibilidad con Vercel documentada (resultado explícito).
 

@@ -12,16 +12,15 @@ import os
 import time
 from dataclasses import dataclass
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, Callable, Protocol
 
 from .config import ARCHIVO_DECISIONES_AGENTE, fecha_referencia
 from .logging_seguro import fijar_correlation_id, registrar_llamada
-from .modelos import Decision
+from .modelos import Decision, RegistroTx
 from .politica import evaluar_solicitud as evaluar_politica
 from .rag import buscar_politica as buscar_rag
-from .repositorio import cargar_tarifario, cargar_transacciones
-from .servicios import resumen_cliente, similares_por_mcc
 from .solicitudes import leer_solicitud as leer_solicitud_txt
 from .validacion import (
     ErrorValidacion, validar_documento, validar_entero, validar_id_solicitud, validar_mcc,
@@ -33,25 +32,25 @@ RESULTADO_OK, RESULTADO_ERROR, RESULTADO_BLOQUEADA = "ok", "error", "bloqueada"
 CAMPOS_DECISIONES = ["id_solicitud", "flag_decision", "motivo", "giro_principal", "tasa_final_pct", "fecha_ref"]
 
 
+TAM_PAGINA = 100  # máximo permitido por GET /transacciones
+MAX_PAGINAS = 1000  # tope de seguridad contra paginación infinita
+
+
 class FuenteDatos(Protocol):
+    """Origen de los datos transaccionales (en producción: la API)."""
+
     def resumen_cliente(self, ruc: str, meses: int) -> dict[str, Any]: ...
     def similares(self, mcc: str) -> dict[str, Any]: ...
-
-
-class FuenteLocal:
-    """Lee el CSV directamente (sin red)."""
-
-    def resumen_cliente(self, ruc: str, meses: int) -> dict[str, Any]:
-        return resumen_cliente(ruc, meses)
-
-    def similares(self, mcc: str) -> dict[str, Any]:
-        return similares_por_mcc(mcc)
+    def transacciones(self) -> tuple[RegistroTx, ...]: ...
+    def tarifario(self) -> dict[str, Decimal]: ...
 
 
 class FuenteApi:
     """Consume la API FastAPI (API_BASE_URL). Solo GET; timeout corto."""
 
     def __init__(self, base_url: str, timeout: float = 10.0) -> None:
+        if not base_url.startswith(("http://", "https://")):
+            raise ValueError("API_BASE_URL debe empezar con http:// o https://")
         self.base_url, self.timeout = base_url.rstrip("/"), timeout
 
     def _get(self, ruta: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -67,10 +66,29 @@ class FuenteApi:
     def similares(self, mcc: str) -> dict[str, Any]:
         return self._get(f"/comercios-similares/{mcc}")
 
+    def transacciones(self) -> tuple[RegistroTx, ...]:
+        """Recorre GET /transacciones página por página (100 filas) hasta completar `total`."""
+        registros: list[RegistroTx] = []
+        desde = 0
+        for _ in range(MAX_PAGINAS):
+            pagina = self._get("/transacciones", {"limite": TAM_PAGINA, "desde": desde})
+            items = pagina["items"]
+            registros.extend(RegistroTx.desde_dict(item) for item in items)
+            desde += len(items)
+            if not items or desde >= int(pagina["total"]):
+                return tuple(registros)
+        raise RuntimeError("Demasiadas páginas al leer /transacciones")
+
+    def tarifario(self) -> dict[str, Decimal]:
+        return {mcc: Decimal(tasa) for mcc, tasa in self._get("/tarifario").items()}
+
 
 def fuente_por_defecto() -> FuenteDatos:
+    """La API es obligatoria: sin API_BASE_URL no hay datos transaccionales."""
     base = os.environ.get("API_BASE_URL")
-    return FuenteApi(base) if base else FuenteLocal()
+    if not base:
+        raise RuntimeError("Falta la variable de entorno API_BASE_URL (URL de la API de transacciones)")
+    return FuenteApi(base)
 
 
 @dataclass(frozen=True)
@@ -140,7 +158,7 @@ def _decision_a_dict(d: Decision) -> dict[str, Any]:
 
 def _evaluar(id_solicitud: str, ctx: Contexto) -> Decision:
     sol = leer_solicitud_txt(id_solicitud, ctx.dir_solicitudes)
-    return evaluar_politica(sol, cargar_transacciones(), cargar_tarifario(), ctx.fecha_ref)
+    return evaluar_politica(sol, ctx.fuente.transacciones(), ctx.fuente.tarifario(), ctx.fecha_ref)
 
 
 def _e_leer_solicitud(args: dict[str, Any], ctx: Contexto) -> dict[str, Any]:

@@ -31,6 +31,8 @@ Todos los datos son **ficticios** y publicables. No usar datos reales de cliente
 ## Reglas de trabajo
 - Nunca leer, imprimir, copiar ni registrar el contenido de `.env`. Solo `.env.example`
   (sin valores). `.env` está en `.gitignore` y no se incluye en zips.
+- El agente obtiene las transacciones **solo por la API** (`FuenteApi` en `src/herramientas.py`); no debe importar
+  `repositorio` ni `servicios` (lo verifica `tests/test_fuente_api.py`). Los tests usan `FuenteDePrueba`.
 - La lógica de negocio vive en módulos puros (`politica.py`, `cotizador.py`); la API,
   las tools y el agente son capas finas encima.
 - Las tasas se manejan con `Decimal` (2 decimales, `ROUND_HALF_UP`), en puntos

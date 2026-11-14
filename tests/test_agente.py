@@ -5,9 +5,9 @@ import pytest
 
 from src.agente import ejecutar_turno, parsear_argumentos
 from src.crear_agente import construir_plan, main as crear_main
-from src.herramientas import Contexto, FuenteLocal
+from src.herramientas import Contexto
 
-from .conftest import FECHA_REF
+from .conftest import FECHA_REF, FuenteDePrueba
 
 
 def llamada(nombre, args, call_id="c1"):
@@ -31,7 +31,7 @@ class RespuestasFalsas:
 
 @pytest.fixture()
 def ctx(tmp_path):
-    return Contexto(fuente=FuenteLocal(), fecha_ref=FECHA_REF, ruta_decisiones=tmp_path / "d.csv")
+    return Contexto(fuente=FuenteDePrueba(), fecha_ref=FECHA_REF, ruta_decisiones=tmp_path / "d.csv")
 
 
 def test_turno_ejecuta_tool_y_devuelve_texto_final(ctx):
