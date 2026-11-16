@@ -22,22 +22,37 @@ El agente trabaja con tres fuentes; todos los datos del proyecto son ficticios.
 
 ## Salidas
 
-Por cada solicitud, el agente entrega una decisión explicada y deja dos archivos de resultados.
+Por cada solicitud, el agente entrega una decisión explicada y el archivo de resultado.
 
 - **Una decisión clara:** se rechaza, pasa a un experto o se aprueba, siempre con su motivo.
 - **Si se aprueba:** el giro principal del negocio y la tasa final, entre 1.40 % y 5.00 %.
-- **Dos archivos de resultados:** uno con las 15 solicitudes de prueba y su decisión, y otro solo con las aprobadas.
-- **Una explicación en lenguaje sencillo**, y el guardado de la decisión solo si el usuario lo confirma.
+- **Una explicación en lenguaje sencillo**.
+- **Archivo de resultados:** los resultados de la evaluación del agente guardados si el usuario lo confirma.
 
-## Herramientas
+## Componentes y herramientas
 
-Un agente conversa con el usuario, pero las decisiones las toma un motor de reglas, no el criterio del modelo.
+Un asistente de IA conversa con el usuario, pero las decisiones las toma un motor de reglas, no el criterio del modelo.
 
-- **Un agente de IA en Microsoft Foundry**, con el que se conversa.
-- **Un motor de reglas** que aplica la política y calcula las tasas.
-- **Un servicio de datos** con el historial de ventas de los comercios.
-- **Un buscador de la política**, para responder preguntas como "¿por qué se rechaza un RUC 10?".
-- **Un registro de actividad** que no guarda datos personales ni claves.
+**Componentes**
+
+- **Asistente de IA en Microsoft Foundry:** entiende la consulta, elige qué herramienta usar y redacta la respuesta.
+- **Motor de reglas:** aplica la política y calcula las tasas. Siempre da el mismo resultado con los mismos datos.
+- **Servicio de datos (API de solo lectura):** entrega el historial de ventas de los comercios y el tarifario.
+- **Buscador de la política:** responde preguntas como "¿por qué se rechaza un RUC 10?".
+- **Registro de actividad:** deja constancia de cada acción sin guardar datos personales ni claves.
+
+**Herramientas**
+
+Son las seis acciones que el asistente puede pedir. Las ejecuta el código del proyecto, no Foundry.
+
+| Herramienta | Qué hace | Tipo |
+|---|---|---|
+| Leer solicitud (`leer_solicitud`) | Trae los datos de una solicitud: giros, banco, ubicación y tasas de la competencia | Lectura |
+| Consultar ventas del cliente (`consultar_transacciones_cliente`) | Resume sus ventas por giro en los últimos meses | Lectura |
+| Consultar comercios similares (`consultar_comercios_similares`) | Obtiene la tasa de referencia de comercios del mismo rubro, útil para clientes nuevos | Lectura |
+| Buscar en la política (`buscar_politica`) | Encuentra los fragmentos de la política y del informe de zonas que responden la pregunta | Lectura |
+| Evaluar solicitud (`evaluar_solicitud`) | Aplica la política y devuelve la decisión (aprueba, rechaza o pasa a experto), el giro principal y la tasa final | Lectura (calcula, no guarda nada) |
+| Guardar decisión (`guardar_decision`) | Registra la decisión en el archivo de resultados | **Escritura**, requiere confirmación del usuario |
 
 ## Riesgos
 
