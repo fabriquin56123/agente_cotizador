@@ -45,13 +45,14 @@ Todos los datos son **ficticios** y publicables. No usar datos reales de cliente
 
 ## Comandos
 ```bash
-python -m venv .venv && source .venv/bin/activate     # Python 3.11
+python -m venv venv 
+.\venv\Scripts\activate     # Python 3.11
 pip install -r requirements.txt -r requirements-dev.txt
 python -m src.generar_datos      # datos de prueba
 python -m src.consolidar         # consolidado + resultados
 pytest -q                        # pruebas
 uvicorn src.api.app:app --reload # API local
-python -m src.crear_agente       # dry-run (no crea nada)
+python -m src.crear_agente --apply       # dry-run (no crea nada)
 ```
 
 ## Mapa del código

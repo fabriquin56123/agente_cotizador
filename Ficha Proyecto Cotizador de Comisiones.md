@@ -6,7 +6,7 @@ Un asistente de IA que revisa la solicitud de un comercio y responde si se le pu
 
 ## Nombre
 
-**Agente Cotizador de Comisiones**, del área de Pricing y Optimización de Precios de Izipay.
+**Agente Cotizador de Comisiones**, del área de Pricing y Optimización de Precios de una empresa de medios de procesos de pago.
 
 ## Usuario objetivo
 
@@ -55,3 +55,4 @@ El riesgo principal es que el agente agregue datos que no consultó; los demás 
 3. Proteger el servicio de datos con una clave antes de usar información real.
 4. Publicar el servicio de datos en internet (opcional) y probarlo con el agente.
 5. Probar con solicitudes reales y definir cómo trabaja el experto con los casos derivados.
+6. Validar los datos del cliente de la solicitud con el registro RUC del portal de la SUNAT.

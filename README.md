@@ -1,4 +1,4 @@
-# Agente de cotización de comisiones — Pricing · Izipay (Microsoft Foundry)
+# Agente de cotización de comisiones — Pricing (Microsoft Foundry)
 
 Agente empresarial que ayuda al área de Pricing a **cotizar la tasa de comisión** de un comercio
 según la política de pricing, el informe de rentabilidad por zonas y la base transaccional de
@@ -34,7 +34,8 @@ Trabajo1/
 ## Reproducir desde cero
 Requiere **Python 3.11**.
 ```bash
-python3.11 -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
+python -m venv venv 
+.\venv\Scripts\activate     # Python 3.11
 pip install -r requirements-dev.txt
 
 python -m src.generar_datos     # (re)genera transacciones, tarifario y 15 solicitudes .txt
